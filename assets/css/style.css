@@ -37,3 +37,19 @@ h2 {
   border-bottom: solid 1px gray;
   font-size: 1.5rem;
 }
+
+#results {
+  margin-bottom: 20px;
+}
+
+.article-item {
+  background: purple;
+  border-radius: 5 px;
+  margin: 10px;
+  padding: 10px;
+  font-weight: 800;
+}
+
+.article-item .article-snippet {
+    font-weight: 300;
+}
