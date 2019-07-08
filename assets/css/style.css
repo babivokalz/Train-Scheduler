@@ -1,0 +1,39 @@
+h1 {
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+h3 {
+  color: black;
+  font-family: "Indie Flower", cursive;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.header {
+  border-radius: 5px;
+  padding: 5%;
+  background: lavenderblush;
+}
+
+.form-container {
+  border: 1px solid lavenderblush;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.data-container {
+  border: 1px solid lavenderblush;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-family: "Indie Flower", cursive;
+  border-bottom: solid 1px gray;
+  font-size: 1.5rem;
+}
