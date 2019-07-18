@@ -12,6 +12,13 @@ firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
 
+firebaseDataTrain = {
+  databaseTrainName: trainName,
+  databaseDestination: destination,
+  databaseFirstTrainTime: firstTrainTime,
+  databaseFrequency: frequency
+};
+
 database.ref().on("child_added", function(snapshot) {
   var snapshot = snapshot.val();
   let trainName = snapshot.trainName;
@@ -24,22 +31,22 @@ database.ref().on("child_added", function(snapshot) {
   var firstTrainCalc = moment(firstTrainTime, "HH:MM A").subtract(1, "years");
   var diff = moment().diff(moment(firstTrainCalc), "minutes");
   var left = diff % frequency;
-  var minLeft = snapFreq - left;
-  var arrivalTime = moment()
-    .add(minLeft, "m")
-    .format("HH:MM: A");
+  // var minLeft = snapFreq - left;
+  // var arrivalTime = moment()
+  //   .add(minLeft, "m")
+  //   .format("HH:MM: A");
 
   let newRow = $("<tr>");
   $(newRow).append(`<td>${trainName}</td>`);
   $(newRow).append(`<td>${destination}</td>`);
   $(newRow).append(`<td>${frequency}</td>`);
-  $(newRow).append(`<td>${nextArrival}</td>`);
-  $(newRow).append(`<td>${minutesAway}</td>`);
+  // $(newRow).append(`<td>${nextArrival}</td>`);
+  // $(newRow).append(`<td>${minutesAway}</td>`);
 
   $("#data-goes-here").append(newRow);
 });
 
-function processEntry() {
+function processEntry(event) {
   event.preventDefault();
 
   let trainName = $("#trainName")
@@ -55,14 +62,15 @@ function processEntry() {
     .val()
     .trim();
 
-  database.ref().push({
-    trainName: trainName,
-    destination: destination,
-    firstTrainTime: firstTrainTime,
-    frequency: frequency,
-    nextArrival: "",
-    minutesAway: ""
-  });
+  database.ref().push(firebaseDataTrain);
+  // {
+  //   trainName: trainName,
+  //   destination: destination,
+  //   firstTrainTime: firstTrainTime,
+  //   frequency: frequency,
+  //   nextArrival: "",
+  //   minutesAway: ""
+  // });
 }
 
 clear();

@@ -19,10 +19,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
-     <!-- The core Firebase JS SDK is always required and must be listed first -->
-     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
 
-     <!-- TODO: Add SDKs for Firebase products that you want to use
+    <!-- TODO: Add SDKs for Firebase products that you want to use
       https://firebase.google.com/docs/web/setup#config-web-app -->
   </head>
   <body>
@@ -56,7 +57,7 @@
       <div class="row">
         <div class="col-md-8 offset-md-2 mt-2 form-container">
           <h2 class="page-header">Add a Train</h2>
-          <form onsubmit="processEntry()">
+          <form onsubmit="processEntry(event)">
             <div class="form-group">
               <label for="trainTable">Train Name</label>
               <input class="form-control" id="trainName" />
