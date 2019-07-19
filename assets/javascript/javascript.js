@@ -12,13 +12,6 @@ firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
 
-firebaseDataTrain = {
-  databaseTrainName: trainName,
-  databaseDestination: destination,
-  databaseFirstTrainTime: firstTrainTime,
-  databaseFrequency: frequency
-};
-
 database.ref().on("child_added", function(snapshot) {
   var snapshot = snapshot.val();
   let trainName = snapshot.trainName;
@@ -49,28 +42,20 @@ database.ref().on("child_added", function(snapshot) {
 function processEntry(event) {
   event.preventDefault();
 
-  let trainName = $("#trainName")
-    .val()
-    .trim();
-  let destination = $("#destination")
-    .val()
-    .trim();
-  let firstTrainTime = $("#firstTrainTime")
-    .val()
-    .trim();
-  let frequency = $("#frequency")
-    .val()
-    .trim();
-
-  database.ref().push(firebaseDataTrain);
-  // {
-  //   trainName: trainName,
-  //   destination: destination,
-  //   firstTrainTime: firstTrainTime,
-  //   frequency: frequency,
-  //   nextArrival: "",
-  //   minutesAway: ""
-  // });
+  database.ref().push({
+    trainName: $("#trainName")
+      .val()
+      .trim(),
+    destination: $("#destination")
+      .val()
+      .trim(),
+    firstTrainTime: $("#firstTrainTime")
+      .val()
+      .trim(),
+    frequency: $("#frequency")
+      .val()
+      .trim()
+  });
 }
 
 clear();
