@@ -12,29 +12,37 @@ firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
 
-database.ref().on("child_added", function(snapshot) {
-  var snapshot = snapshot.val();
-  let trainName = snapshot.trainName;
-  let destination = snapshot.destination;
-  let firstTrainTime = snapshot.firstTrainTime;
-  let frequency = snapshot.frequency;
+var trainName;
+var destination;
+var firstTrainTime;
+var frequency = 0;
+
+database.ref().on("child_added", function(snapshotChild) {
+  var snapshot = snapshotChild.val();
+  var trainName = snapshotChild.trainName;
+  var destination = snapshotChild.destination;
+  var firstTrainTime = snapshotChild.firstTrainTime;
+  var frequency = snapshotChild.frequency;
 
   // add code to calculate train time
-  var time = moment();
-  var firstTrainCalc = moment(firstTrainTime, "HH:MM A").subtract(1, "years");
+  var nextArrival;
+  var minLeft;
+  var firstTrainCalc = moment(
+    snapshotChild.val().firstTrainTime,
+    "HH:MM A"
+  ).subtract(1, "years");
   var diff = moment().diff(moment(firstTrainCalc), "minutes");
-  var left = diff % frequency;
-  // var minLeft = snapFreq - left;
-  // var arrivalTime = moment()
-  //   .add(minLeft, "m")
-  //   .format("HH:MM: A");
+  var left = diff % snapshotChild.val().frequency;
+  var minLeft = snapshotChild.val().frequency - left;
+  var arrivalTime = moment().add(minLeft, "m");
+  arrivalTime = moment(arrivalTime).format("HH:MM: A");
 
   let newRow = $("<tr>");
   $(newRow).append(`<td>${trainName}</td>`);
   $(newRow).append(`<td>${destination}</td>`);
   $(newRow).append(`<td>${frequency}</td>`);
-  // $(newRow).append(`<td>${nextArrival}</td>`);
-  // $(newRow).append(`<td>${minutesAway}</td>`);
+  $(newRow).append(`<td>${arrivalTime}</td>`);
+  $(newRow).append(`<td>${minLeft}</td>`);
 
   $("#data-goes-here").append(newRow);
 });
