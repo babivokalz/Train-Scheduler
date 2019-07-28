@@ -31,11 +31,16 @@ database.ref().on("child_added", function(snapshotChild) {
     snapshotChild.val().firstTrainTime,
     "HH:MM A"
   ).subtract(1, "years");
+  console.log("Does this work?");
   var diff = moment().diff(moment(firstTrainCalc), "minutes");
+  console.log("How about now?");
   var left = diff % snapshotChild.val().frequency;
+  console.log("maybe this?");
   var minLeft = snapshotChild.val().frequency - left;
+  console.log("sigh?");
   var arrivalTime = moment().add(minLeft, "m");
   arrivalTime = moment(arrivalTime).format("HH:MM: A");
+  console.log("annnnnnd this?");
 
   let newRow = $("<tr>");
   $(newRow).append(`<td>${trainName}</td>`);
