@@ -19,10 +19,10 @@ var frequency = 0;
 
 database.ref().on("child_added", function(snapshotChild) {
   var snapshot = snapshotChild.val();
-  var trainName = snapshotChild.trainName;
-  var destination = snapshotChild.destination;
-  var firstTrainTime = snapshotChild.firstTrainTime;
-  var frequency = snapshotChild.frequency;
+  var trainName = snapshot.trainName;
+  var destination = snapshot.destination;
+  var firstTrainTime = snapshot.firstTrainTime;
+  var frequency = snapshot.frequency;
 
   // add code to calculate train time
   var nextArrival;
