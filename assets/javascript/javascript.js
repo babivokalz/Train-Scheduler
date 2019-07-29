@@ -31,16 +31,11 @@ database.ref().on("child_added", function(snapshotChild) {
     snapshotChild.val().firstTrainTime,
     "hh:mm"
   ).subtract(1, "years");
-  console.log("Does this work?");
   var diff = moment().diff(firstTrainCalc, "minutes");
-  console.log("How about now?");
   var left = diff % snapshotChild.val().frequency;
-  console.log("maybe this?");
   var minLeft = snapshotChild.val().frequency - left;
-  console.log("sigh?");
   var arrivalTime = moment().add(minLeft, "m");
   arrivalTime = moment(arrivalTime).format("hh:mm A");
-  console.log("annnnnnd this?");
 
   let newRow = $("<tr>");
   $(newRow).append(`<td>${trainName}</td>`);
@@ -55,23 +50,27 @@ database.ref().on("child_added", function(snapshotChild) {
 function processEntry(event) {
   event.preventDefault();
 
-  database.ref().push({
-    trainName: $("#trainName")
-      .val()
-      .trim(),
-    destination: $("#destination")
-      .val()
-      .trim(),
-    firstTrainTime: $("#firstTrainTime")
-      .val()
-      .trim(),
-    frequency: $("#frequency")
-      .val()
-      .trim()
-  });
-}
+  const trainName = $("#trainName")
+    .val()
+    .trim();
+  const destination = $("#destination")
+    .val()
+    .trim();
+  const firstTrainTime = $("#firstTrainTime")
+    .val()
+    .trim();
+  const frequency = $("#frequency")
+    .val()
+    .trim();
 
-clear();
+  database.ref().push({
+    trainName: trainName,
+    destination: destination,
+    firstTrainTime: firstTrainTime,
+    frequency: frequency
+  });
+  clear();
+}
 
 function clear() {
   $("#trainName").val("");
